@@ -30,3 +30,6 @@ requires = [
     "cython>=0.29",
 ]  # PEP 508 specifications
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+exclude = ["pyLandau.cpp"]
