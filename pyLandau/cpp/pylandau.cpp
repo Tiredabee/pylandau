@@ -731,7 +731,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 
     /* NumPy API declarations from "numpy/__init__.pxd" */
     
-#include "ios"
+#include <ios>
 #include "new"
 #include "stdexcept"
 #include "typeinfo"
