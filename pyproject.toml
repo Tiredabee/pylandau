@@ -32,7 +32,6 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 keywords = ["Landau", "Langau", "PDF"]
-dynamic = ["keywords"]
 
 [tool.setuptools.packages.find]
 exclude = ["pyLandau.cpp"]
