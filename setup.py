@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import builtins
+import sys
 from setuptools import setup, find_packages, Extension  # This setup relies on setuptools since distutils is insufficient and badly hacked code
 from setuptools.command.build_ext import build_ext as _build_ext
 
@@ -12,6 +13,15 @@ class build_ext(_build_ext):
         import numpy
         self.include_dirs.append(numpy.get_include())
 
+# Determine platform-specific compiler flags
+extra_compile_args = ["-std=c++11"]  # Or use -std=c++17 if you like
+extra_link_args = []
+
+if sys.platform == "darwin":  # macOS-specific
+    extra_compile_args += ["-stdlib=libc++"]
+    extra_link_args += ["-stdlib=libc++"]
+
+
 # Check if cython exists, then use it. Otherwise compile already cythonized cpp file
 have_cython = False
 try:
@@ -21,11 +31,15 @@ except ImportError:
     pass
 
 if have_cython:
-    cpp_extension = cythonize(Extension('pylandau', ['pyLandau/cpp/pylandau.pyx']))
+    cpp_extension = cythonize(Extension('pylandau', ['pyLandau/cpp/pylandau.pyx'],
+        extra_compile_args=extra_compile_args,
+        extra_link_args=extra_link_args,))
 else:
     cpp_extension = [Extension('pylandau',
                                sources=['pyLandau/cpp/pylandau.cpp'],
-                               language="c++")]
+                               language="c++",
+        extra_compile_args=extra_compile_args,
+        extra_link_args=extra_link_args,)]
 
 install_requires = ['cython>=0.29', 'numpy>=1.21']
 
