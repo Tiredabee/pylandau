@@ -3,6 +3,7 @@ import builtins
 import sys
 from setuptools import setup, find_packages, Extension  # This setup relies on setuptools since distutils is insufficient and badly hacked code
 from setuptools.command.build_ext import build_ext as _build_ext
+import numpy
 
 extensions = [
     Extension(
