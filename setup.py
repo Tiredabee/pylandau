@@ -62,7 +62,7 @@ install_requires = ['cython>=0.29', 'numpy>=1.21']
 setup(
     cmdclass={'build_ext': build_ext},
     install_requires=install_requires,
-    packages=find_packages(),
+    packages=find_packages(exclude=["pyLandau.cpp", "pyLandau.cpp.*"),
     include_package_data=True,  # accept all data files and directories matched by MANIFEST.in or found in source control
     package_data={'': ['README.*', 'VERSION'], 'docs': ['*'], 'examples': ['*']},
     ext_modules=cpp_extension,
