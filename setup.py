@@ -4,6 +4,21 @@ import sys
 from setuptools import setup, find_packages, Extension  # This setup relies on setuptools since distutils is insufficient and badly hacked code
 from setuptools.command.build_ext import build_ext as _build_ext
 
+extensions = [
+    Extension(
+        name="pylandau",  # The module name you import
+        sources=[
+            "pyLandau/cpp/pylandau.pyx",     # Your Cython file (renamed from .cpp to .pyx?)
+            "pyLandau/cpp/pylandau_src.cpp", # Your C++ implementation
+        ],
+        include_dirs=[
+            numpy.get_include(),             # NumPy headers
+            "pyLandau/cpp",                  # Your custom headers
+        ],
+        language="c++",
+        extra_compile_args=["-std=c++11"],
+    )
+]
 
 class build_ext(_build_ext):
     def finalize_options(self):
