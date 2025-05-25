@@ -24,7 +24,7 @@ cdef extern from "numpy/arrayobject.h":
     void PyArray_ENABLEFLAGS(cnp.ndarray arr, int flags)
 
 
-cdef extern from "pylandau_src.cpp":
+cdef extern from "pylandau_src.h":
     double * getLandauPDFData(double *  data, const unsigned int  size, const double  mu, const double  eta) except +
     double * getLangauPDFData(double *  data, const unsigned int  size, const double  mu, const double  eta, const double  sigma) except +
     double landauPDF(const double  x, const double  xi, const double &x0) except +
